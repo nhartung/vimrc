@@ -24,6 +24,10 @@ Plugin 'scrooloose/NERDTree'
 " https://github.com/scrooloose/syntastic
 Plugin 'scrooloose/syntastic'
 
+" Block Commenter
+" https://github.com/scrooloose/nerdcommenter
+Plugin 'scrooloose/nerdcommenter'
+
 " Powershell syntax highlighting and indenting
 " https://github.com/PProvost/vim-ps1
 Plugin 'PProvost/vim-ps1'
@@ -32,6 +36,12 @@ Plugin 'PProvost/vim-ps1'
 " https://github.com/wincent/command-t
 " Requires Ruby
 Plugin 'wincent/command-t'
+
+" Auto Completion for C++ (among other languages)
+" Needs additional compiliation steps for c++ semantics
+" See github for installation directions.
+" https://github.com/Valloric/YouCompleteMe
+" Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -58,6 +68,12 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_cpp_remove_include_errors = 1
+
+
+" Plugin Settings for nerdcommenter
+let g:NERDSpaceDelims = 1       " Add 1 space after comments
+let g:NERDCommentEmptyLines = 1 " Comment empty lines
+
 " Using CICADA Syntastic Config
 let g:syntastic_cpp_config_file = 'C:\Users\hartung.n\Desktop\Workspace\CICADA\trunk\Source\_syntastic_config'
 
@@ -99,3 +115,9 @@ set expandtab
 
 " Add column line at column 120
 set colorcolumn=120
+
+" Automatically reload .vimrc when changes are detected
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') && filereadable($MYGVIMRC) | so $MYGVIMRC | endif
+augroup END
