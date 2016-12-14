@@ -37,6 +37,14 @@ Plugin 'PProvost/vim-ps1'
 " Requires Ruby
 Plugin 'wincent/command-t'
 
+" Text Alignment Utility
+" https://github.com/vim-scripts/Align
+Plugin 'vim-scripts/Align'
+
+" Window Swap Utility
+" https://github.com/wesQ3/vim-windowswap
+Plugin 'wesQ3/vim-windowswap'
+
 " Auto Completion for C++ (among other languages)
 " Needs additional compiliation steps for c++ semantics
 " See github for installation directions.
@@ -115,9 +123,22 @@ set expandtab
 
 " Add column line at column 120
 set colorcolumn=120
+"
+" Move backup files (~ files) and swap files
+set backupdir=$USERPROFILE\AppData\Local\Temp
+set swapfile
+set dir=$USERPROFILE\AppData\Local\Temp
 
 " Automatically reload .vimrc when changes are detected
 augroup myvimrc
     au!
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') && filereadable($MYGVIMRC) | so $MYGVIMRC | endif
 augroup END
+
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+noremap h <NOP>
+noremap l <NOP>
