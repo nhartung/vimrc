@@ -51,6 +51,23 @@ Plugin 'wesQ3/vim-windowswap'
 " https://github.com/Valloric/YouCompleteMe
 " Plugin 'Valloric/YouCompleteMe'
 
+" Surround text plugin
+" https://github.com/tpope/vim-surround
+Plugin 'tpope/vim-surround'
+
+" VCS Markup Plugin
+" Usful for showing blames, but also has other features
+" https://github.com/vim-scripts/vcscommand.vim
+Plugin 'vim-scripts/vcscommand.vim'
+
+" Font Size Adjustment Plugin
+" https://github.com/drmikehenry/vim-fontsize 
+Plugin 'drmikehenry/vim-fontsize'
+
+" Auto completion when searching
+" https://github.com/vim-scripts/SearchComplete
+Plugin 'vim-scripts/SearchComplete'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -76,6 +93,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_cpp_remove_include_errors = 1
+let g:syntastic_cpp_check_header = 1
 
 
 " Plugin Settings for nerdcommenter
@@ -84,9 +102,9 @@ let g:NERDCommentEmptyLines = 1 " Comment empty lines
 
 " Using CICADA Syntastic Config
 let g:syntastic_cpp_config_file = 'C:\Users\hartung.n\Desktop\Workspace\CICADA\trunk\Source\_syntastic_config'
-
+" let g:syntastic_quiet_messages = { "regex": "'__int64' does not name a type" }
 " Using g++ (On windows I'm using MinGW)
-let g:syntastic_cpp_compiler = 'g++' 
+let g:syntastic_cpp_checkers = [ 'gcc' ]
 
 " Turn on omnicomplete
 set omnifunc=syntaxcomplete#Complete
@@ -111,7 +129,7 @@ set nowrap
 
 " Set font to Consolas
 if has( 'gui_running' )
-	set guifont=Consolas:h9:cANSI
+	set guifont=Consolas:h12:cANSI
 endif
 
 " Tab Settings
@@ -135,10 +153,16 @@ augroup myvimrc
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') && filereadable($MYGVIMRC) | so $MYGVIMRC | endif
 augroup END
 
+" Remaps
+" Capitalize word just typed
+imap <c-u> <esc>viwUea
+" Save in the various modes
+nnoremap <c-s> :w<CR> 
+inoremap <c-s> <Esc>:w<CR>a
+vnoremap <leader>a :Align=<CR>
+
+" Disable movement via the arrow keys and h and l keys.
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-
-noremap h <NOP>
-noremap l <NOP>
