@@ -1,110 +1,75 @@
-" Vundle Requirements
-""""""""""""""""""""""
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Using vim-plug as my pluin manager.
+" This can be installed by following the instructions here: 
+" https://github.com/junegunn/vim-plug
 
-" set the runtime path to include Vundle and initialize
-set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
-call vundle#begin('$USERPROFILE/vimfiles/bundle/')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Initialize vim-plug. Tell it which directory to use for plugins:
+call plug#begin('~/.config/nvim/plugged')
 
 " My plugins
 
+" Intellisense Engine
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " Colorscheme plugin
 " https://github.com/morhetz/gruvbox
-Plugin 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 
 " File Explorer
 " https://github.com/scrooloose/nerdtree
-Plugin 'scrooloose/NERDTree'
-
-" Syntax Checker
-" https://github.com/scrooloose/syntastic
-Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/NERDTree'
 
 " Block Commenter
 " https://github.com/scrooloose/nerdcommenter
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 
 " Powershell syntax highlighting and indenting
 " https://github.com/PProvost/vim-ps1
-Plugin 'PProvost/vim-ps1'
+Plug 'PProvost/vim-ps1'
 
 " File Search Utility
 " https://github.com/wincent/command-t
 " Requires Ruby
-Plugin 'wincent/command-t'
+Plug 'wincent/command-t'
 
 " Text Alignment Utility
 " https://github.com/vim-scripts/Align
-Plugin 'vim-scripts/Align'
+Plug 'vim-scripts/Align'
 
 " Window Swap Utility
 " https://github.com/wesQ3/vim-windowswap
-Plugin 'wesQ3/vim-windowswap'
+Plug 'wesQ3/vim-windowswap'
 
 " Auto Completion for C++ (among other languages)
 " Needs additional compiliation steps for c++ semantics
 " See github for installation directions.
 " https://github.com/Valloric/YouCompleteMe
-" Plugin 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 
 " Surround text plugin
 " https://github.com/tpope/vim-surround
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 " VCS Markup Plugin
 " Usful for showing blames, but also has other features
 " https://github.com/vim-scripts/vcscommand.vim
-Plugin 'vim-scripts/vcscommand.vim'
+Plug 'vim-scripts/vcscommand.vim'
 
 " Font Size Adjustment Plugin
 " https://github.com/drmikehenry/vim-fontsize 
-Plugin 'drmikehenry/vim-fontsize'
+Plug 'drmikehenry/vim-fontsize'
 
 " Auto completion when searching
 " https://github.com/vim-scripts/SearchComplete
-Plugin 'vim-scripts/SearchComplete'
+Plug 'vim-scripts/SearchComplete'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
+" Calling plug#end updates &runtimepath and initializes the plugin system
+call plug#end()
+
 " Put your non-Plugin stuff after this line
-
-" Recommended start settings for syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_cpp_remove_include_errors = 1
-let g:syntastic_cpp_check_header = 1
-
 
 " Plugin Settings for nerdcommenter
 let g:NERDSpaceDelims = 1       " Add 1 space after comments
 let g:NERDCommentEmptyLines = 1 " Comment empty lines
-
-" Using CICADA Syntastic Config
-let g:syntastic_cpp_config_file = 'C:\Users\hartung.n\Desktop\Workspace\CICADA\trunk\Source\_syntastic_config'
-" let g:syntastic_quiet_messages = { "regex": "'__int64' does not name a type" }
-" Using g++ (On windows I'm using MinGW)
-let g:syntastic_cpp_checkers = [ 'gcc' ]
 
 " Turn on omnicomplete
 set omnifunc=syntaxcomplete#Complete
@@ -139,19 +104,23 @@ set softtabstop=3
 set smarttab
 set expandtab
 
-" Add column line at column 120
-set colorcolumn=120
+" Add column line at column 80
+set colorcolumn=80
 "
 " Move backup files (~ files) and swap files
 set backupdir=$USERPROFILE\AppData\Local\Temp
 set swapfile
 set dir=$USERPROFILE\AppData\Local\Temp
 
-" Automatically reload .vimrc when changes are detected
-augroup myvimrc
-    au!
-    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') && filereadable($MYGVIMRC) | so $MYGVIMRC | endif
-augroup END
+" Reloads vimrc after saving but keep cursor position
+if !exists('*ReloadVimrc')
+   fun! ReloadVimrc()
+       let save_cursor = getcurpos()
+       source $MYVIMRC
+       call setpos('.', save_cursor)
+   endfun
+endif
+autocmd! BufWritePost $MYVIMRC call ReloadVimrc()
 
 " Remaps
 " Capitalize word just typed
@@ -161,7 +130,7 @@ nnoremap <c-s> :w<CR>
 inoremap <c-s> <Esc>:w<CR>a
 vnoremap <leader>a :Align=<CR>
 
-" Disable movement via the arrow keys and h and l keys.
+" Disable movement via the arrow keys
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
