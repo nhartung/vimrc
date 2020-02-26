@@ -72,7 +72,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " SVN highlighting in NERDTree
-Plug 'greggerz/nerdtree-svn-plugin'
+" Plug 'greggerz/nerdtree-svn-plugin'
 
 " Color for NERDTree (goes with vim-devicons)
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -99,6 +99,8 @@ colorscheme gruvbox
 " Bind NERDTreeToggle to <C-f>
 nmap <C-f> :NERDTreeToggle<CR>
 
+" NERDTree file ignores
+let NERDTreeIgnore = ['\.cod$', '\.sbr$', '\.obj$', '\.idb$', '\.pdb$', '\.pyc$']
 
 " Turn on Syntax Highlighting
 syntax on
@@ -158,6 +160,12 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Split Resizing via Ctrl + resize
+nnoremap > <C-W>2<lt>
+nnoremap <lt> <C-W>2>
+nnoremap - <C-W>2-
+nnoremap = <C-W>2+
 
 " Disable movement via the arrow keys
 noremap <Up> <NOP>
