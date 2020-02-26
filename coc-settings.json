@@ -3,12 +3,13 @@
     "ccls": {
        "command": "/home/nhartung/programming_tools/ccls/Release/ccls",
        "filetypes": ["c", "cpp", "objc", "objcpp"],
-       "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+       "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/", ".svn/" ],
        "initializationOptions": {
           "cache": {
              "directory": "/tmp/ccls"
           }
        }
     }
-  }
+  },
+  "python.jediEnabled": false
 }

@@ -10,6 +10,11 @@ sudo apt install gcc
 sudo apt install g++
 ```
 
+- Installed pip (is required by nvim coc-python to download pylint)  
+```
+sudo apt install python3-pip  
+```
+
 - make was already installed, but installed cmake.
 
 ```
