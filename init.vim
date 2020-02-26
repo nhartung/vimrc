@@ -62,6 +62,25 @@ Plug 'drmikehenry/vim-fontsize'
 " https://github.com/vim-scripts/SearchComplete
 Plug 'vim-scripts/SearchComplete'
 
+" Diff markup in the gutter
+Plug 'mhinz/vim-signify'
+
+" VSCode ctrl-p emulation
+Plug 'ctrlpvim/ctrlp.vim'
+
+" Git highlighting in NERDTree
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" SVN highlighting in NERDTree
+Plug 'greggerz/nerdtree-svn-plugin'
+
+" Color for NERDTree (goes with vim-devicons)
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+" Adds icons to various vim plugins (including NERDTree)
+" LOAD THIS LAST
+Plug 'ryanoasis/vim-devicons'
+
 " Calling plug#end updates &runtimepath and initializes the plugin system
 call plug#end()
 
@@ -76,6 +95,10 @@ set omnifunc=syntaxcomplete#Complete
 
 " Set Colorscheme (using grubbox plugin)
 colorscheme gruvbox
+
+" Bind NERDTreeToggle to <C-f>
+nmap <C-f> :NERDTreeToggle<CR>
+
 
 " Turn on Syntax Highlighting
 syntax on
@@ -129,6 +152,12 @@ imap <c-u> <esc>viwUea
 nnoremap <c-s> :w<CR> 
 inoremap <c-s> <Esc>:w<CR>a
 vnoremap <leader>a :Align=<CR>
+
+" Split Navigating via Ctrl + movement
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Disable movement via the arrow keys
 noremap <Up> <NOP>
