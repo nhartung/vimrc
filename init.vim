@@ -58,6 +58,9 @@ Plug 'vim-scripts/vcscommand.vim'
 " https://github.com/drmikehenry/vim-fontsize
 Plug 'drmikehenry/vim-fontsize'
 
+" Markdown syntax highlighting and features
+Plug 'plasticboy/vim-markdown'
+
 " Auto completion when searching
 " https://github.com/vim-scripts/SearchComplete
 Plug 'vim-scripts/SearchComplete'
@@ -187,11 +190,11 @@ noremap <Right> <NOP>
 
 " coc settings
 " coc config
-" Some future extensions to look into:
 let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-python',
+  \ 'coc-yank',
   \ ]
 " The below were all copy and pasted
 " Some servers have issues with backup files, see #649
@@ -221,6 +224,42 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Function to enable spellcheck
+function! SpellOn()
+   set spell spelllang=en_us
+endfunction
+
+function! SpellOff()
+   set spell&
+endfunction
+
+" Function to enable soft wrapping of text. 
+" Note that you need to resize your terminal to get the expected behavior.
+function! Wrap_Soft()
+   " # (optional - will help to visually verify that it's working)
+   set textwidth=0
+   set wrapmargin=0
+   set wrap
+   " # optional - breaks by word rather than character
+   set linebreak
+endfunction
+
+function! Wrap_Hard()
+   " # (optional - will help to visually verify that it's working)
+   set textwidth=80
+   set wrapmargin=0
+   set formatoptions+=t
+   " # (optional - breaks by word rather than character)
+   set linebreak
+endfunction
+
+function! Wrap_Default()
+   set textwidth&
+   set wrapmargin&
+   set formatoptions-=t
+   set linebreak&
 endfunction
 
 " Use <c-space> to trigger completion.
