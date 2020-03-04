@@ -69,7 +69,11 @@ Plug 'vim-scripts/SearchComplete'
 Plug 'mhinz/vim-signify'
 
 " VSCode ctrl-p emulation
-Plug 'ctrlpvim/ctrlp.vim'
+" fzf (below) replaces this Plugin
+" Plug 'ctrlpvim/ctrlp.vim'
+
+" fzf Fuzzy Finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " Airline Upgrade
 Plug 'vim-airline/vim-airline'
@@ -96,6 +100,9 @@ call plug#end()
 " Plugin Settings for nerdcommenter
 let g:NERDSpaceDelims = 1       " Add 1 space after comments
 let g:NERDCommentEmptyLines = 1 " Comment empty lines
+
+" Update grep syntax
+set grepprg=grep\ -n\ $*
 
 " Turn on omnicomplete
 set omnifunc=syntaxcomplete#Complete
@@ -187,6 +194,10 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+
+" Map Ctrl-P to FZF (fuzzy finder)
+nnoremap <c-p> :FZF<CR>
+inoremap <c-p> <Esc>:FZF<CR>
 
 " coc settings
 " coc config

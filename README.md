@@ -78,3 +78,10 @@ sudo apt-get install libtinfo-dev
 - Updated the coc config file to include the coc server  
 This can be accessed via the :CocConfig command in nvim.
 See the config file in this repo. You may need to update paths to be consistent with the system you are on.
+
+- Installed fzf (fuzzy finder) via git. Followed the instructions here:  
+https://github.com/junegunn/fzf#using-git  
+```
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+```
