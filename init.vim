@@ -148,11 +148,22 @@ if has( 'gui_running' )
 endif
 
 " Tab Settings
+filetype plugin indent on
+" Existing tabs show as 3 spaces
 set tabstop=3
+" Shifting with > uses 3 spaces
 set shiftwidth=3
-set softtabstop=3
+set softtabstop=0
 set smarttab
 set expandtab
+
+" Need to override python tab setings.
+" The internal python plugin tries to set its own tab settings????
+augroup python
+    autocmd!
+    autocmd FileType python setlocal tabstop=3
+    autocmd FileType python setlocal shiftwidth=3
+augroup end
 
 " Add column line at column 80
 set colorcolumn=80
@@ -184,8 +195,11 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Split Resizing via Ctrl + resize
-nnoremap > <C-W>2<lt>
-nnoremap <lt> <C-W>2>
+" Disabling the two below for now because those are the kepmaps to indent and
+" unindent.
+"
+" nnoremap > <C-W>2<lt>
+" nnoremap <lt> <C-W>2>
 nnoremap - <C-W>2-
 nnoremap = <C-W>2+
 
