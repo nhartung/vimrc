@@ -69,10 +69,12 @@ cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/clang+ll
 cmake --build Release
 ```
 
-I also needed the following libraries in order to link:  
+I also needed the following libraries in order to link, but not in all installations...:  
 ```
 sudo apt-get install zlib1g-dev  
 sudo apt-get install libtinfo-dev
+sudo apt-get update -y
+sudo apt-get install -y rapidjson-dev
 ```
 
 - Updated the coc config file to include the coc server  
