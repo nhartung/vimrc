@@ -14,6 +14,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " https://github.com/morhetz/gruvbox
 Plug 'morhetz/gruvbox'
 
+" Alternate Colorsheme plugin. Uses 24 bit colors
+Plug 'jacoborus/tender.vim'
+
 " File Explorer
 " https://github.com/scrooloose/nerdtree
 Plug 'scrooloose/NERDTree'
@@ -107,8 +110,15 @@ set grepprg=grep\ -n\ $*
 " Turn on omnicomplete
 set omnifunc=syntaxcomplete#Complete
 
-" Set Colorscheme (using grubbox plugin)
-colorscheme gruvbox
+" Set Colorscheme 
+if (has("termguicolors"))
+   set termguicolors
+endif
+" colorscheme gruvbox
+set bg=dark
+let g:gruvbox_contrast_dark='soft'
+let g:gruvbox_contrast_light='soft'
+colorscheme tender
 
 " Settings for NERDTree devicons
 " whether or not to show the nerdtree brackets around flags
@@ -125,7 +135,8 @@ let NERDTreeNaturalSort = 1
 
 " Airline settings
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme = 'wombat'
+" let g:airline_theme = 'wombat'
+let g:airline_theme = 'tender'
 
 " Turn on Syntax Highlighting
 syntax on
