@@ -87,3 +87,12 @@ https://github.com/junegunn/fzf#using-git
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 ```
+
+- Install win32yank in order to allow copy and paste to work with the clipboard
+when using the "* and "+ registers.
+```
+curl -sLo/tmp/win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
+unzip -p /tmp/win32yank.zip win32yank.exe > /tmp/win32yank.exe
+chmod +x /tmp/win32yank.exe
+mv /tmp/win32yank.exe /usr/bin
+```

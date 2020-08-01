@@ -14,9 +14,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " https://github.com/morhetz/gruvbox
 Plug 'morhetz/gruvbox'
 
-" Alternate Colorsheme plugin. Uses 24 bit colors
-Plug 'jacoborus/tender.vim'
-
 " File Explorer
 " https://github.com/scrooloose/nerdtree
 Plug 'scrooloose/NERDTree'
@@ -63,6 +60,7 @@ Plug 'drmikehenry/vim-fontsize'
 
 " Markdown syntax highlighting and features
 Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_folding_disabled = 1
 
 " Auto completion when searching
 " https://github.com/vim-scripts/SearchComplete
@@ -100,6 +98,22 @@ call plug#end()
 
 " Put your non-Plugin stuff after this line
 
+" Using Windows Clipboard
+let g:clipboard = {
+    \   'name': 'myClipboard',
+    \   'copy': {
+    \      '+': 'win32yank.exe -i',
+    \      '*': 'win32yank.exe -i',
+    \    },
+    \   'paste': {
+    \      '+': 'win32yank.exe -o --lf',
+    \      '*': 'win32yank.exe -o --lf',
+    \   },
+    \   'cache_enabled': 1,
+    \ }
+" Uncomment the below to treat all yanks as being copied to the clipboard.
+" set clipboard+=unnamedplus
+
 " Plugin Settings for nerdcommenter
 let g:NERDSpaceDelims = 1       " Add 1 space after comments
 let g:NERDCommentEmptyLines = 1 " Comment empty lines
@@ -118,7 +132,9 @@ endif
 set bg=dark
 let g:gruvbox_contrast_dark='soft'
 let g:gruvbox_contrast_light='soft'
-colorscheme tender
+" colorscheme wombat
+" colorscheme tender
+colorscheme gruvbox
 
 " Settings for NERDTree devicons
 " whether or not to show the nerdtree brackets around flags
