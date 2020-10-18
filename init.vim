@@ -10,9 +10,17 @@ call plug#begin('~/.config/nvim/plugged')
 " Intellisense Engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" If you don't have nodejs and yarn
+" use pre build, add 'vim-plug' to the filetype list so vim-plug can update this plugin
+" see: https://github.com/iamcco/markdown-preview.nvim/issues/50
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
 " Colorscheme plugin
 " https://github.com/morhetz/gruvbox
 Plug 'morhetz/gruvbox'
+
+" Alternate Colorsheme plugin. Uses 24 bit colors
+Plug 'jacoborus/tender.vim'
 
 " File Explorer
 " https://github.com/scrooloose/nerdtree
@@ -96,23 +104,10 @@ Plug 'ryanoasis/vim-devicons'
 " Calling plug#end updates &runtimepath and initializes the plugin system
 call plug#end()
 
-" Put your non-Plugin stuff after this line
+" Remap terminal settings so ESC exits edit mode:
+tnoremap <Esc> <C-\><C-n>
 
-" Using Windows Clipboard
-let g:clipboard = {
-    \   'name': 'myClipboard',
-    \   'copy': {
-    \      '+': 'win32yank.exe -i',
-    \      '*': 'win32yank.exe -i',
-    \    },
-    \   'paste': {
-    \      '+': 'win32yank.exe -o --lf',
-    \      '*': 'win32yank.exe -o --lf',
-    \   },
-    \   'cache_enabled': 1,
-    \ }
-" Uncomment the below to treat all yanks as being copied to the clipboard.
-" set clipboard+=unnamedplus
+" Put your non-Plugin stuff after this line
 
 " Plugin Settings for nerdcommenter
 let g:NERDSpaceDelims = 1       " Add 1 space after comments
@@ -128,13 +123,11 @@ set omnifunc=syntaxcomplete#Complete
 if (has("termguicolors"))
    set termguicolors
 endif
-" colorscheme gruvbox
+colorscheme gruvbox
 set bg=dark
 let g:gruvbox_contrast_dark='soft'
 let g:gruvbox_contrast_light='soft'
-" colorscheme wombat
 " colorscheme tender
-colorscheme gruvbox
 
 " Settings for NERDTree devicons
 " whether or not to show the nerdtree brackets around flags
@@ -186,11 +179,11 @@ set expandtab
 
 " Need to override python tab setings.
 " The internal python plugin tries to set its own tab settings????
-augroup python
-    autocmd!
-    autocmd FileType python setlocal tabstop=3
-    autocmd FileType python setlocal shiftwidth=3
-augroup end
+" augroup python
+    " autocmd!
+    " autocmd FileType python setlocal tabstop=3
+    " autocmd FileType python setlocal shiftwidth=3
+" augroup end
 
 " Add column line at column 80
 set colorcolumn=80
@@ -248,6 +241,8 @@ let g:coc_global_extensions = [
   \ 'coc-python',
   \ 'coc-yank',
   \ ]
+
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'setup.cfg', 'setup.py', 'pyproject.toml']
 " The below were all copy and pasted
 " Some servers have issues with backup files, see #649
 set nobackup
