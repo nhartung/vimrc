@@ -53,7 +53,7 @@ One of my plugins relies on a "NERD Font". Need to install and configure one wit
 coc requires node which I installed as follows:
 
 ```
-    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -  
+    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -  
     sudo apt-get install -y nodejs
 ```
 
