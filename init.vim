@@ -15,6 +15,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " see: https://github.com/iamcco/markdown-preview.nvim/issues/50
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
+" Dart plugin
+" https://github.com/dart-lang/dart-vim-plugin
+Plug 'dart-lang/dart-vim-plugin'
+
 " Colorscheme plugin
 " https://github.com/morhetz/gruvbox
 Plug 'morhetz/gruvbox'
@@ -185,6 +189,15 @@ set expandtab
     " autocmd FileType python setlocal shiftwidth=3
 " augroup end
 
+augroup dart
+    autocmd!
+    autocmd FileType dart setlocal tabstop=2
+    autocmd FileType dart setlocal shiftwidth=2
+    autocmd BufWritePre *.dart :DartFmt
+    autocmd BufWritePre *.dart :call CocAction('runCommand', 'editor.action.organizeImport')
+augroup end
+
+
 " Add column line at column 80
 set colorcolumn=80
 "
@@ -233,9 +246,46 @@ noremap <Right> <NOP>
 nnoremap <c-p> :FZF<CR>
 inoremap <c-p> <Esc>:FZF<CR>
 
+" Function to enable spellcheck
+function! SpellOn()
+   set spell spelllang=en_us
+endfunction
+
+function! SpellOff()
+   set spell&
+endfunction
+
+" Function to enable soft wrapping of text. 
+" Note that you need to resize your terminal to get the expected behavior.
+function! Wrap_Soft()
+   " # (optional - will help to visually verify that it's working)
+   set textwidth=0
+   set wrapmargin=0
+   set wrap
+   " # optional - breaks by word rather than character
+   set linebreak
+endfunction
+
+function! Wrap_Hard()
+   " # (optional - will help to visually verify that it's working)
+   set textwidth=80
+   set wrapmargin=0
+   set formatoptions+=t
+   " # (optional - breaks by word rather than character)
+   set linebreak
+endfunction
+
+function! Wrap_Default()
+   set textwidth&
+   set wrapmargin&
+   set formatoptions-=t
+   set linebreak&
+endfunction
+
 " coc settings
 " coc config
 let g:coc_global_extensions = [
+  \ 'coc-actions',
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-python',
@@ -273,42 +323,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Function to enable spellcheck
-function! SpellOn()
-   set spell spelllang=en_us
-endfunction
-
-function! SpellOff()
-   set spell&
-endfunction
-
-" Function to enable soft wrapping of text. 
-" Note that you need to resize your terminal to get the expected behavior.
-function! Wrap_Soft()
-   " # (optional - will help to visually verify that it's working)
-   set textwidth=0
-   set wrapmargin=0
-   set wrap
-   " # optional - breaks by word rather than character
-   set linebreak
-endfunction
-
-function! Wrap_Hard()
-   " # (optional - will help to visually verify that it's working)
-   set textwidth=80
-   set wrapmargin=0
-   set formatoptions+=t
-   " # (optional - breaks by word rather than character)
-   set linebreak
-endfunction
-
-function! Wrap_Default()
-   set textwidth&
-   set wrapmargin&
-   set formatoptions-=t
-   set linebreak&
-endfunction
-
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
@@ -342,10 +356,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!

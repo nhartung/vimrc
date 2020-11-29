@@ -1,7 +1,7 @@
 {
  "languageserver": {
     "ccls": {
-       "command": "/home/nhartung/programming_tools/ccls/Release/ccls",
+       "command": "/home/nhartung/dev/ccls/Release/ccls",
        "filetypes": ["c", "cpp", "objc", "objcpp"],
        "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/", ".svn/" ],
        "initializationOptions": {
@@ -9,7 +9,15 @@
              "directory": "/tmp/ccls"
           }
        }
-    }
+    },
+    "dart": {
+      "command": "/usr/bin/dart",
+      "args": ["/usr/lib/dart/bin/snapshots/analysis_server.dart.snapshot", "--lsp"],
+      "filetypes": ["dart"],
+      "rootPatterns": ["pubspec.yaml"],
+      "initializationOptions": {}
+     }
   },
   "python.jediEnabled": false
 }
+
