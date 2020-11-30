@@ -10,6 +10,19 @@ call plug#begin('~/.config/nvim/plugged')
 " Intellisense Engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" Modern c++ syntax highlighting
+Plug 'bfrg/vim-cpp-modern'
+
+" Enable highlighting of C++11 attributes
+let g:cpp_attributes_highlight = 1
+
+" Highlight struct/class member variables (affects both C and C++ files)
+let g:cpp_member_highlight = 1
+
+" Put all standard C and C++ keywords under Vim's highlight group 'Statement'
+" (affects both C and C++ files)
+let g:cpp_simple_highlight = 1
+
 " If you don't have nodejs and yarn
 " use pre build, add 'vim-plug' to the filetype list so vim-plug can update this plugin
 " see: https://github.com/iamcco/markdown-preview.nvim/issues/50
@@ -127,11 +140,17 @@ set omnifunc=syntaxcomplete#Complete
 if (has("termguicolors"))
    set termguicolors
 endif
+
 colorscheme gruvbox
 set bg=dark
 let g:gruvbox_contrast_dark='soft'
 let g:gruvbox_contrast_light='soft'
+
 " colorscheme tender
+
+" Airline settings
+" let g:airline_theme = 'wombat'
+let g:airline_theme = 'tender'
 
 " Settings for NERDTree devicons
 " whether or not to show the nerdtree brackets around flags
@@ -145,11 +164,6 @@ nmap <C-f> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.cod$', '\.sbr$', '\.obj$', '\.idb$', '\.pdb$', '\.pyc$']
 " Sort numbers numerically
 let NERDTreeNaturalSort = 1
-
-" Airline settings
-let g:airline#extensions#tabline#enabled = 1
-" let g:airline_theme = 'wombat'
-let g:airline_theme = 'tender'
 
 " Turn on Syntax Highlighting
 syntax on
@@ -165,6 +179,9 @@ set number
 
 " No line wrapping
 set nowrap
+
+" 10 Second redraw time. Allows large file syntax highlighting to work.
+set redrawtime=30000
 
 " Set font to Consolas
 if has( 'gui_running' )
